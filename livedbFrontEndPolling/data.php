@@ -6,7 +6,7 @@
 // @return::   Returns a json result from
 //             the database 'filing' table
 //
-//Author: Christopher Stenqvist
+//Author: Christopher Stenqvist, Many Ndao
 //Date:   10/21/2016
 // 
 //////// 
