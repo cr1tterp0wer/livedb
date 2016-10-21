@@ -1,0 +1,87 @@
+<!Doctype html>
+<!-- Web Application DB monitoring tool          -->
+<!-- TEST SINGLE:: POLLING FRONT-END TO BACK END -->
+<!-- 10/21/2016 -->
+
+<html>
+      <head>
+      <meta charset= utf-8/>
+      <meta http-equiv = "X-UA- Compatible" content="" IE="edge">
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      <!-- Latest compiled and minified CSS -->
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/css/bootstrap.min.css">
+	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
+	  <!-- Latest compiled and minified JavaScript -->
+	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+      <title>Live-DB</title>
+
+      </head>
+
+<body>
+<div id = "show">
+	<table id="mytable" class="table table-inverse"><thead><tr id="myTableHeader"></tr></thead><tbody></tbody></table>
+</div>
+
+<script type="text/javascript" >
+
+$( document).ready(function() {
+	setInterval(function() {
+	 
+	  $.ajax({
+	  	url:'data.php?getTable',
+	  	type:'GET',
+	  	success: function(data, status){
+	  		var results = jQuery.parseJSON(data);
+	  		var thKeys = Object.keys(results[0]);
+	  		var myTable = jQuery('#mytable');
+	  		
+	  		//init ths
+	  		if(jQuery('#myTableHeader').children().length <1){
+	  			initTH(jQuery('#myTableHeader'), thKeys );
+	  		}
+
+			jQuery(myTable).find('.TdataRow').remove();
+
+	  		
+			for (var key in results) {
+			  if (results.hasOwnProperty(key)) {
+			  	var result = results[key];
+			  	console.log(result);
+			  	var id = result['bid'];
+			  	jQuery(myTable).find('tbody').append('<tr class="Trow TdataRow" id='+id+'><td class="Tcolumn">'+result['bid']+'</td><td class="Tcolumn">'+result['ID']+'</td><td class="Tcolumn">'+result['Year']+'</td><td class="Tcolumn">'+result['Recieved']+'</td><td class="Tcolumn">'+result['Amount']+'</td><td class="Tcolumn">'+result['Type']+'</td><td class="Tcolumn">'+result['Period']+'</td><td class="Tcolumn">'+result['qID']+'</td></tr>');			  	
+			  }
+			}
+
+
+	  	},
+	  	error:function(xhr,description,error){
+	  		$('#show').append(xhr);
+	  		console.log(xhr);
+	  		console.log("ERROR::"+description+" :: " + error)
+	  	}
+
+	  });
+	}, 2000);
+
+	var initTH = function(tableHeader, ths){
+	  	var tableHead = jQuery(tableHeader);
+	  	var ths       = jQuery(ths);
+
+
+	  	ths.each(function(i,e){
+		  	jQuery(tableHeader).append('<th class="Theader">'+e+'</th>');
+	  		console.log('<th class="Theader">'+e+'</th>');
+
+	  	});
+  }
+});
+
+
+</script>
+<style>
+	body{ background-color: #626567;margin: 100px 50px 200px 50px;}
+</style>
+</body>
+</html>
