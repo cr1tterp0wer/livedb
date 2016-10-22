@@ -1,0 +1,29 @@
+{
+  "name": "livenodepoller",
+  "version": "1.0.0",
+  "description": "Simple Database Monitor",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test",
+    "postinstall": "bower install"
+  },
+  "author": "Christopher Stenqvist Many Ndao",
+  "license": "ISC",
+  "dependencies":{
+    "socket.io":"*",
+    "express":"*",
+    "grunt": "0.4.2",
+    "grunt-contrib-concat":     "0.3.0",
+    "grunt-contrib-copy":       "0.5.0",
+    "grunt-contrib-jshint":     "0.8.0",
+    "grunt-contrib-nodeunit":   "0.3.0",
+    "grunt-contrib-uglify":     "0.2.2",
+    "grunt-contrib-watch":      "0.5.3",
+    "grunt-jsdoc":              "0.5.4",
+    "grunt-exec":               "0.4.5"
+  }
+}
