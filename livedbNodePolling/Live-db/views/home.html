@@ -1,7 +1,7 @@
 
 <div id = "content-wrap">
   <div id="content">
-  	<table id="myTable"></table>
+
 
     <h1>Live-DB</h1>
 
@@ -12,6 +12,23 @@
     <span>
       count: {{count}}
     </span>
+
+    <div>
+      <table class="table table-inverse">
+        <thead>
+          <tr >
+            <th ng-repeat="(key,value) in rows[0]">{{key}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="(k, v) in rows">
+            <td ng-repeat="(key, value) in v">{{value}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p ng-repeat="p in persons">{{p}}</p>
   </div>
 	
 </div>
