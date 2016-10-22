@@ -12,6 +12,7 @@ II.
   7. (confirm bower was also executed)
   8. locate index.js, change the mysql connection params to match your database credentials
   9. run this command to start the Node.js server: node index.js
+  
 III.
   navigate to localhost:3000
   use the button to refresh all instances of connected clients
