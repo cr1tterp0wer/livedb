@@ -9,12 +9,12 @@
     <button ng-click="reload()" >
       Refresh Table
     </button>
-
+    <h3>{{rows.length}}</h3>
     <div>
       <table class="table table-inverse">
         <thead>
           <tr >
-            <th ng-repeat="(key,value) in rows[0]">{{key}}</th>
+            <th ng-repeat="(key,value) in rows[0]" >{{key}}</th>
           </tr>
         </thead>
         <tbody>
@@ -23,9 +23,12 @@
           </tr>
         </tbody>
       </table>
+      <a id="tagMe" href="#tagMe"></a>
     </div>
 
-    <p ng-repeat="p in persons">{{p}}</p>
   </div>
 	
 </div>
+<script>
+
+</script>

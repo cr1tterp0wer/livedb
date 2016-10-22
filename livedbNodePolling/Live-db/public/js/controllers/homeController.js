@@ -3,6 +3,15 @@
 
 dbApp.controller('homeController',['$scope','$http',function($scope, $http){
 
+
+	var socket = io.connect();
+    
+    //when we are refreshed
+    socket.on('refresh',function(data){
+      console.log('refreshed');
+      getTableData();
+    });
+
 	initTables();
 	function initTables(){
 		getTableData();
@@ -13,6 +22,12 @@ dbApp.controller('homeController',['$scope','$http',function($scope, $http){
 			$scope.rows=data;
 		});
 	};
-	$scope.reload = function(){getTableData();};
+	$scope.reload = function(){
+		getTableData();
+		socket.emit('broadcast refresh', 200);
+		
+	};
+
+	
 
 }]);

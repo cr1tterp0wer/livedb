@@ -6,6 +6,10 @@
     font-size: 10pt;
     text-align:center;
   }
+  .table tbody td{
+    display: table-cell;
+    vertical-align: middle !important;
+  }
   th{
     background: salmon;
      color: black;
@@ -15,3 +19,12 @@
     min-width: 100px;
 
   }
+  tbody tr:nth-child(even) td{
+    background-color:rgba(0,0,0,0.4);
+  }
+  .table>tbody>tr>td,
+  .table>tbody>tr>th,
+  .table>tfoot>tr>td,
+  .table>tfoot>tr>th,
+  .table>thead>tr>td,
+  .table>thead>tr>th{border-top: 1px solid rgba(0, 153, 255, 0.52);}

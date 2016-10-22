@@ -10,7 +10,8 @@ dbApp.config(function($routeProvider, $locationProvider ){
   		templateUrl: 'views/home.html',
   		controller:  'homeController'
   	});
-
+	$routeProvider
+	.when('/load',{redirectTo:'/'});
 
 	$locationProvider.html5Mode(true);
 
