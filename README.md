@@ -1,6 +1,7 @@
 # Database Monitor
 
 I.(Install node.js and create an alias)
+
 II.
   1. install NPM command line tool
   2. install bower command line tool
