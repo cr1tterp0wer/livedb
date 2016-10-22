@@ -22,12 +22,20 @@
 ##IV. FILE SYSTEM
 
 1.assets:           all additional non-essential, styling/js assets
+
 2.bower_components: front-end dependencies
+
 3.db:               backup dummy database file
+
 4.node_modules:     node dependencies
+
 5.public:           public files
+
 6.static:           static files
+
 7.views:            angularjs partials
+
+...
 
 8.`bower.json` + `package.json`: manifest files
 
