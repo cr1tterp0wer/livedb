@@ -1,0 +1,17 @@
+ body{ background-color: #626567;margin: 100px 50px 200px 50px;}
+  .table td{
+    padding: 1em 3em;
+    background-color: slategray;
+    color:white;
+    font-size: 10pt;
+    text-align:center;
+  }
+  th{
+    background: salmon;
+     color: black;
+    font-weight: 800;
+    font-size: 16pt;
+    text-align: center;
+    min-width: 100px;
+
+  }

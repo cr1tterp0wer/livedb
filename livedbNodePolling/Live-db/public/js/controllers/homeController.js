@@ -11,8 +11,8 @@ dbApp.controller('homeController',['$scope','$http',function($scope, $http){
 	function getTableData(){
 		$http.get('/load').success(function(data){
 			$scope.rows=data;
-			getTitles();
 		});
 	};
+	$scope.reload = function(){getTableData();};
 
 }]);
