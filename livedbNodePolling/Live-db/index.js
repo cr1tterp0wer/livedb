@@ -44,24 +44,6 @@ app.get('/load', function(request, response){
 });
 
 
-//CONNECT ALERT
-io.sockets.on('connection',function(socket){
-  connections.push(socket);
-  console.log('Connected: %s sockets connected', connections.length);
- 
-  //DISCONNECT ALERT
-  socket.on('disconnect', function(data){
-    connections.splice(connections.indexOf(socket),1);
-    console.log('Disconnected: %s sockets now connected.',connections.length);
-  });
-
- //EMIT REFRESH
-  socket.on('broadcast refresh',function(data){
-    var code = 'refreshed';
-    io.sockets.emit('refresh',{response:code});
-  });
-});
-
 
 ////////////DB -DEPRECATED!
 
