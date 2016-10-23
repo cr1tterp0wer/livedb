@@ -7,12 +7,13 @@ dbApp.controller('homeController',['$scope','$http','socketFactory',function($sc
 
 	//what get's proc'd
 	socketFactory.socket().on("refresh",function(){
-		console.log("refreshed!");
+		console.log("broadcast received");
 		getTableData();
 	});
 
 	//function to call all sockets
 	socketFactory.socket().on('broadcast refresh',function(){
+		console.log('broadcast sent');
 		io.sockets.emit('refresh');
 	});
 
@@ -29,6 +30,7 @@ dbApp.controller('homeController',['$scope','$http','socketFactory',function($sc
 
 	//button that emits
 	$scope.reload = function(){
+		console.log('button clicked');
 		socketFactory.socket().emit('broadcast refresh')
 	};
 
