@@ -5,6 +5,7 @@
 
 ##II.
   1. install `npm` command line tool `https://nodejs.org/en/download/`
+  2. install 'socket.io' dependency: 'npm -g install socket.io'
   2. install `bower` command line tool: `npm install -g bower`
   3. run this command: `git clone https://github.com/cr1tterp0wer/livedb.git`
   4. navigate to directory `livedbNodPolling/live-db/`
