@@ -1,11 +1,31 @@
+<!-- /* Copyright (CC) Christopher Stenqvist, capodacac@gmail.com - All Rights Reserved
+ *
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * without the express permission of Christopher Stenqvist
+ *
+ * This file is part of livedb, https://github.com/cr1tterp0wer/livedb.git
+ *
+ *
+ ******************************************
+ * Name:Homepage Template - 
+ * ****************************************
+ *
+ *
+ * 
+ *
+ *
+ *
+ *
+ *
+ * *Proprietary and confidential
+ * Written by Christopher Stenqvist, October 2016
+ */ -->
+
+
 
 <div id = "content-wrap">
   <div id="content">
-
-
     <h1>Live-DB</h1>
-
-
     <button ng-click="reload()" >
       Refresh Table
     </button>
@@ -14,21 +34,16 @@
       <table class="table table-inverse">
         <thead>
           <tr >
-            <th ng-repeat="(key,value) in rows[0]" >{{key}}</th>
+            <th ng-repeat="t in titles " >{{t | cleanMe}}</th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="(k, v) in rows">
-            <td ng-repeat="(key, value) in v">{{value}}</td>
+          <tr ng-repeat="(k, v) in rows ">
+            <td ng-repeat="(key, value) in v track by $index">{{value}}</td>
           </tr>
         </tbody>
       </table>
       <a id="tagMe" href="#tagMe"></a>
     </div>
-
   </div>
-	
 </div>
-<script>
-
-</script>

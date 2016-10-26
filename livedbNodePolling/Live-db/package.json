@@ -13,6 +13,6 @@
     "test": "test",
     "postinstall": "bower install"
   },
-  "author": "Christopher Stenqvist Many Ndao",
+  "author": "Christopher Stenqvist",
   "license": "ISC"
 }

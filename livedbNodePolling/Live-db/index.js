@@ -1,9 +1,31 @@
+/* Copyright (CC) Christopher Stenqvist, capodacac@gmail.com - All Rights Reserved
+ *
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * without the express permission of Christopher Stenqvist
+ *
+ * This file is part of livedb, https://github.com/cr1tterp0wer/livedb.git
+ *
+ *
+ ******************************************
+ * Name:index.js - Database Request File -
+ * ****************************************
+ * Server file - Loads Node.js Server
+ *   Handles connection sockets and routes 
+ * 
+ *
+ *
+ *
+ *
+ *
+ * *Proprietary and confidential
+ * Written by Christopher Stenqvist, October 2016
+ */
+
 "use strict";
 
 const express = require('express');
 const app     = express();
-const mysql   = require('mysql');
-
+const db      = require('./dbReqs.js');
 
 
 // Run server to listen on port 3000.
@@ -13,12 +35,6 @@ const server = app.listen(3000, function() {
 
 var io = require('socket.io')(server);
 
-var conn  = mysql.createConnection({
-  host:'localhost',
-  user:'root',
-  password:'',
-  database:'mama'
-});
 
 app.use(express.static('static'));
 app.use('/bower_components',  express.static(__dirname + '/bower_components'));
@@ -32,17 +48,17 @@ var connections = [];
 
 //get express routes
 app.get('/',function(req,res){
-	res.sendFile(__dirname + '/views/index.html');
+    res.sendFile(__dirname + '/views/index.html');
 });
 
-app.get('/load', function(request, response){
-  conn.query("SELECT * FROM filing", function(error, rows, fields){
-    if(error) throw error;
-    else
-      return response.end(JSON.stringify(rows));
-  });
+app.get('/load', function(req, res){
+  var dbquery =db();
+  dbquery.query(req,res,io,"load");
 });
-
+app.get('/init',function(req,res){
+  var dbquery = db();
+  dbquery.query(req,res,io,"init");
+})
 
 io.sockets.on('connection',function(socket){
    connections.push(socket);
@@ -53,14 +69,11 @@ io.sockets.on('connection',function(socket){
      connections.splice(connections.indexOf(socket),1);
      console.log('Disconnected: %s sockets now connected.',connections.length);
    });
-  
-  //EMIT REFRESH
-  socket.on('broadcast refresh',function(data){
-     var code = 'refreshed';
-     io.sockets.emit('refresh',{response:code});
-  });
-});
-  
+    socket.on('reload',function(data){
+      io.sockets.emit('refreshTable');
+    });
+
+ });
 
 
 ////////////DB -DEPRECATED!
