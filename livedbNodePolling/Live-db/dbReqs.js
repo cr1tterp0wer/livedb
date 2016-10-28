@@ -23,6 +23,7 @@
 
 var oracledb = require('oracledb');
 var dbConfig = require('./dbconfig.js');
+var async    = require('async');
 
 if(dbConfig.dbType.toUpperCase() === 'MYSQL'){
   module.exports = () =>{
@@ -45,76 +46,121 @@ if(dbConfig.dbType.toUpperCase() === 'MYSQL'){
   };
 }else{
   module.exports = () =>{
+    var dbQuery = new Object();
+    dbQuery.get_column_names  = [];
+    dbQuery.get_table_values  = [];
+    dbQuery.result ="";
+    initDBQuerys();
+
+    function initDBQuerys(){
+      var k;
+      dbConfig.dbTables.forEach(function(e,i,arr){
+        var n =  "SELECT COLUMN_NAME FROM USER_TAB_COLUMNS WHERE TABLE_NAME LIKE '"+e+"'";
+        var t = "SELECT * FROM "+e;
+        dbQuery.get_column_names.push(n);
+        dbQuery.get_table_values.push(t);
+      });
+    }
     return{
-      query:(request,response,io,context)=>{
-        oracledb.getConnection(
-          {
-            user          : dbConfig.user,
-            password      : dbConfig.password,
-            connectString : dbConfig.connectString
-          },
-          function(err, conn)
-          {
-            var self=this;
-            //get table names + values
-            var get_table_names = "SELECT COLUMN_NAME FROM USER_TAB_COLUMNS WHERE TABLE_NAME LIKE '"+dbConfig.dbTable+"'";
-            var get_table_values      = "SELECT * FROM "+dbConfig.dbTable;
-            var result = new Object();
-
-            if (err) {
-              console.error(err.message);
-              return;
+      
+      getdbQueryVars:()=>{
+        return dbQuery;
+      },
+      queryFall:(request,response, io, ctx)=>{
+        var context = ctx;
+        //[TITLE,TABLENAME,....]
+          function loopQueryTables(conn,callback){
+            var arr = dbQuery.get_column_names;
+            var data="[";
+            var p = [];
+            for(i=0;i<arr.length;i++){
+              p.push(queryMe(conn,arr[i],"TITLE",dbConfig.dbTables[i]).then(function(d){data +=d;}));
             }
+            return Promise.all(p).then(function(){return callback(null, conn, data)});
+          }
 
-            querySingleTable(get_table_names,get_table_values);
-              //GetsingleTable
-             function querySingleTable(table_name_query, table_value_query){
-               dbExecute(conn, table_name_query, function(data){ 
-                 dbExecute(conn,table_value_query,"");
-               });
-             }
+          //fired after loopQuerys, passes data here for appension
+          // [TABLENAME,....]
+          function loopQueryValues(conn,d,callback){
+            var arr = dbQuery.get_table_values;
+            var data=d;
+            var p = [];
+            for(i=0;i<arr.length;i++){
+              p.push(queryMe(conn,arr[i],"",dbConfig.dbTables[i]).then(function(d){data +=d;}));
+            }
+            return Promise.all(p).then(function(){return callback(null, conn, data)});            
+          }
 
-            function dbExecute(c,command,callback){
-
-                var self = this;
-                c.execute(
-                   command,              
-                    function(err, result)
-                    {
-                      if (err) {
-                        console.error(err.message);
-                        releaseConn(c);
-                        return;
-                      }
-                     var data = JSON.stringify(result.rows) ;
-                       if (typeof callback === "function"){
-                        data = "["+data+ ",";
-                        response.write(data);
-                        callback(data);
-                       }
-                       else{
-                        doRelease(conn);
-                        data = data+"]";
-                        response.write(data);
-                        if(context.toUpperCase() !== "INIT")
-                          io.emit("refreshTable");
-                        response.send();
-                      }
-                    });
+          function queryMe(conn,e,title,table_name){
+            var query =e;
+            return conn.execute(
+              query).then(
+              function(result) {
+                  if(title.toUpperCase() == "TITLE"){
+                    result.rows.forEach(function(e,i,arr){e.unshift(table_name);});
+                    result.rows.forEach(function(e,i,arr){e.unshift(title);});
+                    var d = result.rows;
+                  }
+                  else
+                    result.rows.forEach(function(e,i,arr){e.unshift(table_name);});
+                    var d = result.rows;
+                    d     = JSON.stringify(d)+ ",";
+                    return d;
                 }
-          });
+            );
+          }
 
-        function doRelease(conn)
-        {
-          conn.release(
-            function(err) {
-              if (err) {
-                console.error(err.message);
-              }
-            });
-        }
+          function writeMe(conn,data,callback){
+
+            data = data.substring(0,data.length-1)+"]";
+            response.write(data);
+            return callback(null,data);
+          }
+          function sendMe(conn,callback){
+            var p=[];
+            p.push(response.send());
+            return Promise.all(p).then(function(){callback(null);});
+          }
+          function reloadMe(){
+            if(context.toUpperCase() != "INIT")
+              io.emit('refreshTable');
+          }
+          function emit(t){
+            io.emit(t);
+          }
+          function releaseConn(c)
+          {
+            c.release(
+              function(err) {
+                if (err) {
+                  console.error(err.message);
+                }
+              });
+          }
+          // Insert and query the RAW data
+          async.waterfall(
+          [
+            function(callback) {
+              oracledb.getConnection(
+              {
+                user          : dbConfig.user,
+                password      : dbConfig.password,
+                connectString : dbConfig.connectString
+              },
+              callback);
+            },
+            loopQueryTables,
+            loopQueryValues,
+            writeMe,
+            sendMe,
+            reloadMe
+          ],
+          function (err, conn) {
+            if (err) {releaseConn(conn);return; }
+            conn.release(function (err) { if (err) console.error(err.message); });
+          });
       }
-    };
+    };//end return
   }
 
 

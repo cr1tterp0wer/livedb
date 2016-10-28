@@ -1,30 +1,89 @@
- body{ background-color: #626567;margin: 100px 50px 200px 50px;}
+ @font-face {
+    font-family: Lato;
+    src: url(/assets/fonts/Lato-Regular.ttf);
+}
+ @font-face {
+    font-family: Lato-Thin;
+    src: url(/assets/fonts/Lato-Light.ttf);
+}
+
+
+
+
+ body{ 
+  background-color: #eeeeee;
+  margin: 100px 50px 200px 50px;
+  font-family:Lato;
+
+  -webkit-transition: all 0.4s linear;
+  -moz-transition: all 0.4s linear;
+  -o-transition: all 0.4s linear;
+  transition: all 0.4s linear;
+}
+table{box-sizing:border-box;}
+.table>thead>tr>th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #4ec7f5;
+}
   .table td{
     padding: 1em 3em;
-    background-color: slategray;
+    background-color: #005d81;
     color:white;
     font-size: 10pt;
     text-align:center;
+    
   }
   .table tbody td{
     display: table-cell;
     vertical-align: middle !important;
+    font-family:Lato-Thin;
   }
   th{
-    background: salmon;
-     color: black;
+    background: black;
+    color: black;
     font-weight: 800;
     font-size: 16pt;
     text-align: center;
     min-width: 100px;
+    color: #00aeee;
+    padding:25px 8px!important;
 
   }
+  /*tr{display:block;}*/
+  thead tr th:nth-child(2){border-top-left-radius:10px;}
+  thead tr th:last-child{border-top-right-radius:10px;}
+
   tbody tr:nth-child(even) td{
-    background-color:rgba(0,0,0,0.4);
+    background-color:#0078a5;
   }
   .table>tbody>tr>td,
   .table>tbody>tr>th,
   .table>tfoot>tr>td,
   .table>tfoot>tr>th,
   .table>thead>tr>td,
-  .table>thead>tr>th{border-top: 1px solid rgba(0, 153, 255, 0.52);}
+  .table>thead>tr>th{border-top: 1px solid #2ac2fc;}
+tbody tr td{
+    -webkit-transition: all 0.1s linear;
+  -moz-transition: all 0.1s linear;
+  -o-transition: all 0.1s linear;
+  transition: all 0.1s linear;
+}
+
+  tbody tr td:hover{
+   -moz-box-shadow:    inset 0 0 10px #000000;
+   -webkit-box-shadow: inset 0 0 10px #000000;
+   box-shadow:         inset 0 0 10px #000000;
+  }
+
+  /*
+  table{
+      box-sizing: border-box; 
+  }
+  td,th{
+    display:block;
+  }
+  table tbody tf, table tbody td{height:50px;}*/
+  th.fixme{
+    position:fixed;
+    top:0;
+  }

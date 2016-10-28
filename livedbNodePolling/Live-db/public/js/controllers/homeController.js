@@ -30,8 +30,30 @@ dbApp.controller('homeController',['$scope','$http','socketFactory',function($sc
 
 	function initTableData(){
 		$http.get('/init').success(function(data){
-			$scope.titles = data[0];
-			$scope.rows = data[1];
+			// titles["TITLES",<TABLE_NAME>,...], 
+			// rows  [<TABLE_NAME>,...]
+			 $scope.titles = [[],[]];
+			 $scope.rows = [[],[]];
+			 $scope.rowsIndex = 0;
+			 for(k=0;k<data.length;k++){
+				for(i=0;i<data[k].length;i++){
+					//extract rows
+					for(q=0;q<data[k][i].length;q++){
+						if(data[k][i][q] != null && data[k][i][q].toString().toUpperCase() == "TITLE" ){
+							//GET TITLES_COLUMNS
+ 							 $scope.titles[k].push( data[k][i][2]); 
+ 							 //PUT TABLENAME IN TITLES_COLUMN
+ 							 if(data[k].length == (i+1) ){
+ 							 	$scope.titles[k].unshift(data[k][i][1]);
+ 							 }
+ 						}
+					}
+					if(data[k][i] != null  && data[k][i][0].toString().toUpperCase() != "TITLE" ){
+	 					$scope.rows.push(data[k][i]);
+	 					$scope.rowsIndex++;
+ 					}
+				}
+			}
 		});
 	}
 
@@ -53,7 +75,7 @@ dbApp.controller('homeController',['$scope','$http','socketFactory',function($sc
 .factory('dbService',function($http){
 	return{
 		getData: function(callback){
-				$http.get('/load').succes(function(data){});
+			$http.get('/load').succes(function(data){});
 		}
 	}
 })

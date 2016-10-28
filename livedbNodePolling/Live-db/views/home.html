@@ -21,25 +21,21 @@
  * Written by Christopher Stenqvist, October 2016
  */ -->
 
-
-
 <div id = "content-wrap">
   <div id="content">
     <h1>Live-DB</h1>
-    <button ng-click="reload()" >
-      Refresh Table
-    </button>
     <h3>{{rows.length}}</h3>
     <div>
-      <table class="table table-inverse">
+      <table class="table table-inverse" ng-repeat="title in titles track by $index">
         <thead>
           <tr >
-            <th ng-repeat="t in titles " >{{t | cleanMe}}</th>
+            <th ng-repeat="t in title"  ng-hide="$first" >{{t}}</th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="(k, v) in rows ">
-            <td ng-repeat="(key, value) in v track by $index">{{value}}</td>
+          <tr ng-repeat="(k, v) in rows track by $index" ng-if="v[0] == title[0]" >
+
+            <td ng-repeat="(key, value) in v track by $index" ng-hide="$first" >{{value}}</td>
           </tr>
         </tbody>
       </table>

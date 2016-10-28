@@ -45,19 +45,17 @@ app.use('/assets', express.static(__dirname +'/assets'));
 var users = [];
 var connections = [];
 
-
+var dbConn = db();
 //get express routes
 app.get('/',function(req,res){
     res.sendFile(__dirname + '/views/index.html');
 });
 
 app.get('/load', function(req, res){
-  var dbquery =db();
-  dbquery.query(req,res,io,"load");
+  dbConn.queryFall(req,res,io,"LOAD");
 });
 app.get('/init',function(req,res){
-  var dbquery = db();
-  dbquery.query(req,res,io,"init");
+  dbConn.queryFall(req,res,io,"init");
 })
 
 io.sockets.on('connection',function(socket){
@@ -71,8 +69,8 @@ io.sockets.on('connection',function(socket){
    });
     socket.on('reload',function(data){
       io.sockets.emit('refreshTable');
+      console.log('emit');
     });
-
  });
 
 

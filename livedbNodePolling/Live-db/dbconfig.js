@@ -22,7 +22,7 @@
 //Connection Type
 module.exports = {
   dbType        : 'ORACLE',
-  dbTable		: 'JSAO_SUPER_CITIES',
+  dbTables		: ['JSAO_SUPER_CITIES','FILING'],
   user          : process.env.NODE_ORACLEDB_USER || "ROOT",
   password      : process.env.NODE_ORACLEDB_PASSWORD || "welcome",
   connectString : process.env.NODE_ORACLEDB_CONNECTIONSTRING || "localhost:1521/mama",
