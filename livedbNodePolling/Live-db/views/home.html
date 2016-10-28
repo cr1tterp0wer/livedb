@@ -21,12 +21,9 @@
  * Written by Christopher Stenqvist, October 2016
  */ -->
 
-<div id = "content-wrap">
-  <div id="content">
-    <h1>Live-DB</h1>
-    <h3>{{rows.length}}</h3>
-    <div>
-      <table class="table table-inverse" ng-repeat="title in titles track by $index">
+    <div ng-repeat="title in titles track by $index">
+      <h2></h2>
+      <table class="table table-inverse" >
         <thead>
           <tr >
             <th ng-repeat="t in title"  ng-hide="$first" >{{t}}</th>

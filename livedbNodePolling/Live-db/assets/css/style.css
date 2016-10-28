@@ -20,6 +20,14 @@
   -o-transition: all 0.4s linear;
   transition: all 0.4s linear;
 }
+nav .navbar-brand{
+  font-weight: 800;
+  font-size: 18pt;
+}
+.center-me{
+  margin:0 auto;
+  text-align:center;
+}
 table{box-sizing:border-box;}
 .table>thead>tr>th {
     vertical-align: bottom;
