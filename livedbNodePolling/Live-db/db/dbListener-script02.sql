@@ -224,7 +224,7 @@ BEGIN
             city_name,
             country_name,
             votes
-        FROM ROOT.jsao_super_cities;
+        FROM  <USR_NAME>.jsao_super_cities;
     CLOSE l_cursor;
 
     dbms_cq_notification.reg_end;
@@ -246,7 +246,7 @@ AS
 BEGIN
 
     l_req := utl_http.begin_request(
-        url    => '192.168.1.1:3000/load',
+        url    => ' <SERVER_IP:PORT>/load',
         method => 'GET'
     );
 
