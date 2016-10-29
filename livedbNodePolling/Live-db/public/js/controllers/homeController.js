@@ -71,6 +71,15 @@ dbApp.controller('homeController',['$scope','$http','socketFactory',function($sc
 	return function(input){
 		return input[0].replace(/[^a-zA-Z_ ]/g, "");
 	}
+}).directive('showTab', function () {
+    return {
+        link: function (scope, element, attrs) {
+            element.click(function (e) {
+                e.preventDefault();
+                jQuery(element).tab('show');
+            });
+        }
+    };
 })
 .factory('dbService',function($http){
 	return{

@@ -21,8 +21,16 @@
  * Written by Christopher Stenqvist, October 2016
  */ -->
 
-    <div ng-repeat="title in titles track by $index">
-      <h2></h2>
+
+
+
+
+<!-- <div class="tabbable">
+  <ul class="nav nav-tabs">
+    <li class="active" ng-repeat="title in titles track by $index"><a show-tab href="#tab{{$index}}" data-toggle="tab">{{titles[$index][0]}}</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="tab{{$index}}" ng-repeat="title in titles track by $index">
       <table class="table table-inverse" >
         <thead>
           <tr >
@@ -39,4 +47,59 @@
       <a id="tagMe" href="#tagMe"></a>
     </div>
   </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="tabbable"> <!-- Only required for left/right tabs -->
+  <ul class="nav nav-tabs">
+    <li ng-class="{active:$index==0}" ng-repeat="title in titles track by $index"><a show-tab href="#tab{{$index}}" data-toggle="tab">{{titles[$index][0]}}</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane" ng-class="{active:$index==0}"  ng-repeat="title in titles track by $index" id="tab{{$index}}">
+
+      <div >
+        <table class="table table-inverse" >
+          <thead>
+            <tr >
+              <th ng-repeat="t in titles[$index]"  ng-hide="$first" >{{t}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="(k, v) in rows track by $index" ng-if="v[0] == title[0]" >
+
+              <td ng-repeat="(key, value) in v track by $index" ng-hide="$first" >{{value}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <a id="tagMe" href="#tagMe"></a>
+      </div>
+
+    </div>
+    <div class="tab-pane" id="tab2">
+      <p>Howdy, I'm in Section 2.</p>
+    </div>
+  </div>
 </div>
+
+
+
+
+
+    <div ng-repeat="title in titles track by $index" style="display:none;">
+      <h2></h2>
+      <table class="table table-inverse" >
+        <thead>
+          <tr >
+            <th ng-repeat="t in title"  ng-hide="$first" >{{t}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="(k, v) in rows track by $index" ng-if="v[0] == title[0]" >
+
+            <td ng-repeat="(key, value) in v track by $index" ng-hide="$first" >{{value}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <a id="tagMe" href="#tagMe"></a>
+    </div>
