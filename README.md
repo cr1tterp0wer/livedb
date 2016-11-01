@@ -9,7 +9,9 @@
     -extract Basic and SDK
     -create a folder C:/oracle/instantclient/
     -move CONTENTS of BASIC + SDK into C:/oracle/instantclient/
-    -create a path variable;  C:/oracle/instantclient;
+    -create a path variables
+      C:\oracle_installclient\sdk\lib\msvc;
+      C:\oracle_installclient\sdk\include;
 
 
 ##II.
