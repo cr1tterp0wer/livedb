@@ -50,8 +50,8 @@
     </div>
   </div>
 </div> -->
-
-<div class="tabbable"> <!-- Only required for left/right tabs -->
+<!-- 
+<div class="tabbable"> 
   <ul class="nav nav-tabs">
     <li ng-class="{active:$index==0}" ng-repeat="title in titles track by $index"><a show-tab href="#tab{{$index}}" data-toggle="tab">{{titles[$index][0]}}</a></li>
   </ul>
@@ -82,11 +82,11 @@
   </div>
 </div>
 
+ -->
 
 
 
-
-    <div ng-repeat="title in titles track by $index" style="display:none;">
+    <div ng-repeat="title in titles track by $index" style="">
       <h2></h2>
       <table class="table table-inverse" >
         <thead>
