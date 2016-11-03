@@ -9,10 +9,13 @@
     -extract Basic and SDK
     -create a folder C:/oracle/instantclient/
     -move CONTENTS of BASIC + SDK into C:/oracle/instantclient/
-    -create a path variables
-      C:\oracle_installclient\sdk\lib\msvc;
-      C:\oracle_installclient\sdk\include;
+    -create a path variables or set them in administrator cmd window:
 
+       set OCI_LIB_DIR C:\oracle_installclient\sdk\lib\msvc;
+       set OCI_INC_DIR C:\oracle_installclient\sdk\include;
+    -uninstall all c++ versions and visual studios versions
+    -install visual studios 2015 with c++ dependencies
+    -> PATH=C:/oracle/installclient_12_1/vc10;C:/oracle/install_client_12_1;%PATH%
 
 ##II.
   1. install `npm` command line tool `https://nodejs.org/en/download/`
