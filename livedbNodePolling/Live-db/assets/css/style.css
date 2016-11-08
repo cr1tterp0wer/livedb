@@ -28,7 +28,7 @@ nav .navbar-brand{
   margin:0 auto;
   text-align:center;
 }
-table{box-sizing:border-box;}
+table{box-sizing:border-box;min-width: 1000px;}
 .table{
     border-top: 3px solid #00aeee;
   }
@@ -61,7 +61,7 @@ table{box-sizing:border-box;}
     min-width: 100px;
     color: #00aeee;
     padding:25px 8px!important;
-
+    font-size: 1em;
   }
 
   .table>tbody>tr>td,
@@ -89,7 +89,16 @@ tbody tr td{
   }
   div.tabbable ul.nav.nav-tabs li.active a,
   div.tabbable ul.nav.nav-tabs li{margin:0 !important;}
-
+  h2{
+    color: #03729d;
+    border-radius: 0px;
+    margin: 0;
+    background-color: #0078a5;
+    color: #000000;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+  }
   div.tabbable ul.nav.nav-tabs li a{
 
     color: #03729d;

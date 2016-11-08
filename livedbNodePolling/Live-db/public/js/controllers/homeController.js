@@ -32,6 +32,7 @@ dbApp.controller('homeController',['$scope','$http','socketFactory',function($sc
 		$http.get('/init').success(function(data){
 			// titles["TITLES",<TABLE_NAME>,...], 
 			// rows  [<TABLE_NAME>,...]
+
 			 $scope.titles = [[],[]];
 			 $scope.rows = [[],[]];
 			 $scope.rowsIndex = 0;
@@ -69,7 +70,7 @@ dbApp.controller('homeController',['$scope','$http','socketFactory',function($sc
 
 }]).filter('cleanMe',function(){
 	return function(input){
-		return input[0].replace(/[^a-zA-Z_ ]/g, "");
+		return input.replace(/[^a-zA-Z ]/g, " ");
 	}
 }).directive('showTab', function () {
     return {

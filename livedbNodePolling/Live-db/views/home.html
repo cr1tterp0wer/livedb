@@ -86,8 +86,8 @@
 
 
 
-    <div ng-repeat="title in titles track by $index" style="">
-      <h2></h2>
+    <div ng-repeat="title in titles track by $index" style="display:inline-block;">
+      <h2>{{titles[$index][0] |  cleanMe}}</h2>
       <table class="table table-inverse" >
         <thead>
           <tr >
