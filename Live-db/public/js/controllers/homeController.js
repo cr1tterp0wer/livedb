@@ -20,8 +20,6 @@
  * *Proprietary and confidential
  * Written by Christopher Stenqvist, October 2016
  */
-
-
 //HomeController
 
 dbApp.controller('homeController',['$scope','$http','socketFactory',function($scope, $http,socketFactory){
